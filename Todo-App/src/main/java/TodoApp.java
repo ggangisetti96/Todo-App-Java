@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.TodoDBUtil;
+
 /**
  * Servlet implementation class Home
  */
@@ -34,7 +36,17 @@ public class TodoApp extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// doGet(request, response);
+
+		try {
+		TodoDBUtil.createTodo("Create Database layer", false);
+		}
+		catch(Exception e ) {
+			e.printStackTrace();
+		}
+		finally {
+	        System.out.println("Added Todo successfully!");
+		}
+		
 	}
 
 }

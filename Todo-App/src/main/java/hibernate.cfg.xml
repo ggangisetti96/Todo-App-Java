@@ -7,7 +7,7 @@
 	    <!-- The dialect specifies the type of database used in hibernate so that hibernate generate appropriate type of SQL statements. -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://ec2-3-87-60-155.compute-1.amazonaws.com:3306/myDB</property>
+		<property name="hibernate.connection.url">jdbc:mysql://ec2-3-87-60-155.compute-1.amazonaws.com:3306/TodoList?useSSL=false</property>
 		<property name="hibernate.connection.username">ggangisetti_remote</property>
 		<property name="hibernate.connection.password">n@th396G</property>
 		<!-- you can create and update the table if it is not in DB. If create, it create new table everytime-->

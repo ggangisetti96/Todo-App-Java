@@ -4,6 +4,7 @@ import datamodel.Todo;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.Iterator;
 
 import org.hibernate.SessionFactory;
@@ -55,6 +56,22 @@ public class TodoDBUtil {
 		      try {
 		         tx = session.beginTransaction();
 		         session.save(new Todo(todo, Boolean.valueOf(done)));
+		         tx.commit();
+		      } catch (HibernateException e) {
+		         if (tx != null)
+		            tx.rollback();
+		         e.printStackTrace();
+		      } finally {
+		         session.close();
+		      }
+		   }
+	   
+	   public static void deleteTodo(int id) {
+		      Session session = getSessionFactory().openSession();
+		      Transaction tx = null;
+		      try {
+		         tx = session.beginTransaction();
+		         session.createQuery("DELETE FROM TodoList_Gangisetti WHERE ID=" + id).executeUpdate();
 		         tx.commit();
 		      } catch (HibernateException e) {
 		         if (tx != null)

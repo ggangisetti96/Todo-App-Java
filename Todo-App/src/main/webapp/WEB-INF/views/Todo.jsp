@@ -58,8 +58,10 @@
                    To-do Manager
                 </div>
                 <div class="input-section">
+                  <form method='post' action='Home'>
                     <input type="text" name="todo"/>
                     <button type="submit">Add</button>
+                  </form>
                 </div>
             </header>
 

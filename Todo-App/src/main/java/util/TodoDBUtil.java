@@ -35,7 +35,7 @@ public class TodoDBUtil {
 
 		      try {
 		         tx = session.beginTransaction();
-		         List<?> todos = session.createQuery("FROM TodoList_Gangisetti").list();
+		         List<?> todos = session.createQuery("FROM Todo").list();
 		         for (Iterator<?> iterator = todos.iterator(); iterator.hasNext();) {
 		        	 Todo todo = (Todo) iterator.next();
 		            resultList.add(todo);
@@ -71,7 +71,7 @@ public class TodoDBUtil {
 		      Transaction tx = null;
 		      try {
 		         tx = session.beginTransaction();
-		         session.createQuery("DELETE FROM TodoList_Gangisetti WHERE ID=" + id).executeUpdate();
+		         session.createQuery("DELETE FROM Todo where id=" + id).executeUpdate();
 		         tx.commit();
 		      } catch (HibernateException e) {
 		         if (tx != null)

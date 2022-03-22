@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ taglib uri = "http://java.sun.com/jstl/core" prefix = "c" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,12 +58,38 @@
                    To-do Manager
                 </div>
                 <div class="input-section">
-                  <form method='post' action='Home'>
+                  <form method='post' action='AddTodo'>
                     <input type="text" name="todo"/>
                     <button type="submit">Add</button>
                   </form>
+                 </div>
+             </header>
+                  <div>
+                  <table>
+                   <thead>
+					<tr>
+						<th>Task</th>
+						<th>Created On</th>
+						<th>Actions</th>
+					</tr>
+					</thead>
+				    <tbody>
+					<c:forEach var="todo" items='${todos}'>
+
+						<tr>
+							<td><c:out value="${todo.text}" /></td>
+							<td><c:out value="${todo.createdAt}" /></td>
+							<td>
+							  <form method='post' action='DeleteTodo'>
+							    <input type="hidden" name="id" value="${todo.id}"/>
+			                    <button type="submit">Delete</button>
+			                  </form>						
+							</td>
+						</tr>
+					</c:forEach>
+				     </tbody>	
+                  </table>        
                 </div>
-            </header>
 
         </div>
     </body>

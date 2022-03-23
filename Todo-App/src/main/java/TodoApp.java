@@ -31,10 +31,12 @@ public class TodoApp extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getServletPath();
-		if(path.equals("/list") || path.equals("/") || path.equals("")) {
+		if(path.equals("/list") || path.equals("/")) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Todo.jsp");
 			List<Todo> todos = TodoDBUtil.listTodos();
+			List<Todo> completedList = TodoDBUtil.listCompleted();
 			request.setAttribute("todos", todos);
+			request.setAttribute("completedList", completedList);
 			dispatcher.forward(request, response);
 		}
 	}
@@ -48,11 +50,20 @@ public class TodoApp extends HttpServlet {
 		try {
 			if(path.equals("/AddTodo")) {
 				String todo = request.getParameter("todo");
-				TodoDBUtil.createTodo(todo, false);
+				// validate string length
+				if(todo.length() > 1) {
+					TodoDBUtil.createTodo(todo, null);
+				}
 			}
-			else if(path.equals("/DeleteTodo")) {
+			else if(path.equals("/UpdateTodo")) {
 				int id = Integer.parseInt(request.getParameter("id"));
-				TodoDBUtil.deleteTodo(id);
+				String type = request.getParameter("submit");
+				if(type.equals("markComplete")) {
+					TodoDBUtil.markTodo(id);
+				}
+				if(type.equals("delete")) {
+					TodoDBUtil.deleteTodo(id);
+      			}					
 			}
 		
 		}
@@ -61,7 +72,6 @@ public class TodoApp extends HttpServlet {
 		}
 		finally {
 			response.sendRedirect("list");	
-			System.out.println("path" + path);
 		}
 	}
 

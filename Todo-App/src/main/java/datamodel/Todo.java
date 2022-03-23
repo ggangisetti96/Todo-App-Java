@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -28,13 +27,13 @@ public class Todo {
    private String createdAt;
    
    @Column(name="completed")
-   private boolean completed;
+   private String completed;
    
    public Todo() {
 	   super();
    }
    
-   public Todo(String todo, boolean done) {
+   public Todo(String todo, String done) {
 	   this.text = todo;
 	   this.completed = done;
        this.createdAt = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
@@ -52,7 +51,7 @@ public class Todo {
 	   return createdAt;
    }
    
-   public boolean getCompleted() {
+   public String getCompleted() {
 	   return completed;
    }
    
@@ -60,7 +59,7 @@ public class Todo {
 	   this.text = todo;
    }
    
-   public void markCompleted(boolean done) {
+   public void markCompleted(String done) {
 	   this.completed = done;
    }
       

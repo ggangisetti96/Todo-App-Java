@@ -74,25 +74,20 @@
                 align-items: center;
                 background: #f5efef;
             }
-            .todo-row > div{
+            .todo-row > div, .completed-row > div{
               text-align: left;
               flex-basis: 25%;
-            }
-            .completed-row > div{
-              text-align: left;
-              flex-basis: 25%;
-              text-decoration: line-through;
             }
             .check-icon{
                 color: green;
 			    font-size: larger;
-			    background: white;
+			    background: transparent;
 			    border: none;
             }
             .cross-icon{
                 color: #b60000;
 			    font-size: larger;
-			    background: white;
+			    background: transparent;
 			    border: none;
             }
     </style>
@@ -140,7 +135,8 @@
 							<div><c:out value="${todo.completedAt}" /></div>
 							<div>
 							  <form method='post' action='UpdateTodo'>
-							    <input type="hidden" class="check-icon" name="id" value="${todo.id}"/>
+							    <input type="hidden" class="check-icon" style="text-decoration: line-through;" name="id" value="${todo.id}"/>
+							    <button type="submit" class="cross-icon" name="submit" title="undo" value="markIncomplete"> &#8634;</button>
 			                    <button type="submit" class="cross-icon" name="submit" title="delete" value="delete"> &cross;</button>
 			                  </form>						
 							</div>

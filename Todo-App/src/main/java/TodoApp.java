@@ -59,6 +59,9 @@ public class TodoApp extends HttpServlet {
 				int id = Integer.parseInt(request.getParameter("id"));
 				String type = request.getParameter("submit");
 				if(type.equals("markComplete")) {
+					TodoDBUtil.markComplete(id);
+				}
+				if(type.equals("markIncomplete")) {
 					TodoDBUtil.markTodo(id);
 				}
 				if(type.equals("delete")) {

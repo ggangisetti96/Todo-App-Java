@@ -98,6 +98,22 @@ public class TodoDBUtil {
 		      Transaction tx = null;
 		      try {
 		         tx = session.beginTransaction();
+		         session.createQuery("UPDATE Todo SET completed = null, completedAt = null where id=" + id).executeUpdate();
+		         tx.commit();
+		      } catch (HibernateException e) {
+		         if (tx != null)
+		            tx.rollback();
+		         e.printStackTrace();
+		      } finally {
+		         session.close();
+		      }
+		   }
+	   
+	   public static void markComplete(int id) {
+		      Session session = getSessionFactory().openSession();
+		      Transaction tx = null;
+		      try {
+		         tx = session.beginTransaction();
 		         String completedAt = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
 		         session.createQuery("UPDATE Todo SET completed = 'y', completedAt='"  + completedAt + "' "  + "where id=" + id).executeUpdate();
 		         tx.commit();

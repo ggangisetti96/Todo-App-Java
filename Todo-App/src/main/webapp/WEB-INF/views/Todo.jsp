@@ -15,7 +15,7 @@
             }
             #root {
                margin: auto;
-               width: 55%;
+               width: 65%;
             }
             header{
                 background: #0A0A0A;
@@ -25,6 +25,9 @@
                 display: flex; 
                 flex-direction: column;
                 justify-content: center;       
+            }
+            button{
+            	cursor: pointer;
             }
             .Add-btn{
                 background: #fff;
@@ -73,11 +76,11 @@
             }
             .todo-row > div{
               text-align: left;
-              flex-basis: 33.33%;
+              flex-basis: 25%;
             }
             .completed-row > div{
               text-align: left;
-              flex-basis: 33.33%;
+              flex-basis: 25%;
               text-decoration: line-through;
             }
             .check-icon{
@@ -108,9 +111,10 @@
                  </div>
              </header>
                   <div class="todo-list">
-					<div class="todo-row" style="background: gainsboro;">
+					<div class="todo-row" style="background: gainsboro; font-weight: bold;">
 						<div>Task</div>
 						<div>Created On</div>
+						<div>Completed On</div>
 						<div>Actions</div>
 					</div>
 					<c:forEach var="todo" items='${todos}'>
@@ -118,11 +122,12 @@
 						<div class="todo-row">
 							<div><c:out value="${todo.text}" /></div>
 							<div><c:out value="${todo.createdAt}" /></div>
+							<div><c:out value="${todo.completedAt}" /></div>
 							<div>
 							  <form method='post' action='UpdateTodo'>
 							    <input type="hidden" name="id" value="${todo.id}"/>
-							    <button type="submit" class="check-icon" name="submit" value="markComplete"> &check;</button>
-			                    <button type="submit" class="cross-icon" name="submit" value="delete"> &cross;</button>
+							    <button type="submit" class="check-icon" title="mark as complete" name="submit" value="markComplete"> &check;</button>
+			                    <button type="submit" class="cross-icon" title="delete" name="submit" value="delete"> &cross;</button>
 			                  </form>						
 							</div>
 						</div>
@@ -132,10 +137,11 @@
 						<div class="completed-row">
 							<div><c:out value="${todo.text}" /></div>
 							<div><c:out value="${todo.createdAt}" /></div>
+							<div><c:out value="${todo.completedAt}" /></div>
 							<div>
 							  <form method='post' action='UpdateTodo'>
 							    <input type="hidden" class="check-icon" name="id" value="${todo.id}"/>
-			                    <button type="submit" class="cross-icon" name="submit" value="delete"> &cross;</button>
+			                    <button type="submit" class="cross-icon" name="submit" title="delete" value="delete"> &cross;</button>
 			                  </form>						
 							</div>
 						</div>

@@ -2,7 +2,9 @@ package util;
 
 import datamodel.Todo;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import java.util.Iterator;
@@ -96,7 +98,8 @@ public class TodoDBUtil {
 		      Transaction tx = null;
 		      try {
 		         tx = session.beginTransaction();
-		         session.createQuery("UPDATE Todo SET completed = 'y' where id=" + id).executeUpdate();
+		         String completedAt = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+		         session.createQuery("UPDATE Todo SET completed = 'y', completedAt='"  + completedAt + "' "  + "where id=" + id).executeUpdate();
 		         tx.commit();
 		      } catch (HibernateException e) {
 		         if (tx != null)

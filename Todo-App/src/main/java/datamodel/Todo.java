@@ -26,6 +26,9 @@ public class Todo {
    @Column(name="createdAt")
    private String createdAt;
    
+   @Column(name="completedAt")
+   private String completedAt;
+   
    @Column(name="completed")
    private String completed;
    
@@ -37,6 +40,7 @@ public class Todo {
 	   this.text = todo;
 	   this.completed = done;
        this.createdAt = new SimpleDateFormat("MM-dd-yyyy").format(new Date());
+       this.completedAt = null;
    }
       
    public int getId() {
@@ -49,6 +53,10 @@ public class Todo {
    
    public String getCreatedAt() {
 	   return createdAt;
+   }
+   
+   public String getCompletedAt() {
+	   return completedAt;
    }
    
    public String getCompleted() {

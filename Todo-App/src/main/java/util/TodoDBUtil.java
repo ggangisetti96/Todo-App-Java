@@ -93,6 +93,22 @@ public class TodoDBUtil {
 		      }
 		   }
 	   
+	   public static void editTodo(int id, String todo) {
+		      Session session = getSessionFactory().openSession();
+		      Transaction tx = null;
+		      try {
+		         tx = session.beginTransaction();
+		         session.createQuery("UPDATE Todo SET text = '"  + todo + "' "  + "where id=" + id).executeUpdate();
+		         tx.commit();
+		      } catch (HibernateException e) {
+		         if (tx != null)
+		            tx.rollback();
+		         e.printStackTrace();
+		      } finally {
+		         session.close();
+		      }
+		   }
+	   
 	   public static void markTodo(int id) {
 		      Session session = getSessionFactory().openSession();
 		      Transaction tx = null;

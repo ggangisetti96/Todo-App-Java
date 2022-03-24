@@ -32,11 +32,17 @@ public class TodoApp extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getServletPath();
 		if(path.equals("/list") || path.equals("/")) {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Todo.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Todo-list.jsp");
 			List<Todo> todos = TodoDBUtil.listTodos();
 			List<Todo> completedList = TodoDBUtil.listCompleted();
 			request.setAttribute("todos", todos);
 			request.setAttribute("completedList", completedList);
+			dispatcher.forward(request, response);
+		}
+		else if(path.equals("/edit")) {
+			int id = Integer.parseInt(request.getParameter("id"));
+			request.setAttribute("todoId", id);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/views/Edit-Todo.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
@@ -58,15 +64,23 @@ public class TodoApp extends HttpServlet {
 			else if(path.equals("/UpdateTodo")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				String type = request.getParameter("submit");
-				if(type.equals("markComplete")) {
-					TodoDBUtil.markComplete(id);
-				}
-				if(type.equals("markIncomplete")) {
-					TodoDBUtil.markTodo(id);
-				}
-				if(type.equals("delete")) {
-					TodoDBUtil.deleteTodo(id);
-      			}					
+				System.out.println(type + "type");
+				switch(type) {
+				 case "markComplete":
+					 TodoDBUtil.markComplete(id);
+					 break;
+				 case "markIncomplete":
+					 TodoDBUtil.markTodo(id);
+					 break;
+				 case "delete":
+					 TodoDBUtil.deleteTodo(id);
+					 break;
+				 case "edit":
+					 String todo = request.getParameter("to-do");
+					 System.out.println(todo);
+					 TodoDBUtil.editTodo(id, todo);	
+					 break;
+				}								
 			}
 		
 		}

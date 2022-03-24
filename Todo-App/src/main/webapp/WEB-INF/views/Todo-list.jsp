@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Todo Manager</title>
+<title>Todo Manager - List</title>
     <style>
             body {
                 font-family: "Roboto", sans-serif;
@@ -115,12 +115,15 @@
 					<c:forEach var="todo" items='${todos}'>
 
 						<div class="todo-row">
-							<div><c:out value="${todo.text}" /></div>
+							<div>
+							  <a href="edit?id=<c:out value='${todo.id}' />">&#9998;</a>&nbsp;
+							  <c:out value="${todo.text}" />
+							</div>
 							<div><c:out value="${todo.createdAt}" /></div>
 							<div><c:out value="${todo.completedAt}" /></div>
 							<div>
 							  <form method='post' action='UpdateTodo'>
-							    <input type="hidden" name="id" value="${todo.id}"/>
+							    <input type="hidden" name="id" placeholder=" Enter here..." value="${todo.id}"/>
 							    <button type="submit" class="check-icon" title="mark as complete" name="submit" value="markComplete"> &check;</button>
 			                    <button type="submit" class="cross-icon" title="delete" name="submit" value="delete"> &cross;</button>
 			                  </form>						

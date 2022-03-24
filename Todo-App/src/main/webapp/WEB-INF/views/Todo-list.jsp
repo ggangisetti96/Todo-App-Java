@@ -100,7 +100,7 @@
                 </div>
                 <div class="input-section">
                   <form method='post' action='AddTodo'>
-                    <input type="text" name="todo"/>
+                    <input type="text" name="todo" placeholder=" Enter here..."/>
                     <button type="submit" class="Add-btn">Add</button>
                   </form>
                  </div>
@@ -123,17 +123,23 @@
 							<div><c:out value="${todo.completedAt}" /></div>
 							<div>
 							  <form method='post' action='UpdateTodo'>
-							    <input type="hidden" name="id" placeholder=" Enter here..." value="${todo.id}"/>
+							    <input type="hidden" name="id" value="${todo.id}"/>
 							    <button type="submit" class="check-icon" title="mark as complete" name="submit" value="markComplete"> &check;</button>
 			                    <button type="submit" class="cross-icon" title="delete" name="submit" value="delete"> &cross;</button>
 			                  </form>						
 							</div>
 						</div>
 					</c:forEach>
+					<div class="todo-row" style="background: white; font-weight: bold;">
+						<div>Completed List:</div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
 					<c:forEach var="todo" items='${completedList}'>
 
 						<div class="completed-row">
-							<div><c:out value="${todo.text}" /></div>
+							<div style="text-decoration: line-through;"><c:out value="${todo.text}" /></div>
 							<div><c:out value="${todo.createdAt}" /></div>
 							<div><c:out value="${todo.completedAt}" /></div>
 							<div>
